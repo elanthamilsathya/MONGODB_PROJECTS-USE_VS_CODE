@@ -1,0 +1,68 @@
+# Microgoal Tracker Project
+
+microgoals = []
+
+def show_menu():
+    print("\n==== MICROGOAL TRACKER ====")
+    print("1. Add Microgoal")
+    print("2. View Microgoals")
+    print("3. Mark Goal as Completed")
+    print("4. Delete Goal")
+    print("5. Exit")
+
+def add_goal():
+    goal = input("Enter your microgoal: ")
+    microgoals.append({"goal": goal, "status": "Pending"})
+    print("Microgoal added successfully!")
+
+def view_goals():
+    if not microgoals:
+        print("No microgoals found.")
+    else:
+        print("\nYour Microgoals:")
+        for i, item in enumerate(microgoals, start=1):
+            print(f"{i}. {item['goal']} - {item['status']}")
+
+def complete_goal():
+    view_goals()
+    if microgoals:
+        try:
+            choice = int(input("Enter goal number to mark as completed: "))
+            if 1 <= choice <= len(microgoals):
+                microgoals[choice - 1]["status"] = "Completed"
+                print("Goal marked as completed!")
+            else:
+                print("Invalid goal number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+def delete_goal():
+    view_goals()
+    if microgoals:
+        try:
+            choice = int(input("Enter goal number to delete: "))
+            if 1 <= choice <= len(microgoals):
+                removed = microgoals.pop(choice - 1)
+                print(f"Deleted goal: {removed['goal']}")
+            else:
+                print("Invalid goal number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+while True:
+    show_menu()
+    option = input("Choose an option: ")
+
+    if option == "1":
+        add_goal()
+    elif option == "2":
+        view_goals()
+    elif option == "3":
+        complete_goal()
+    elif option == "4":
+        delete_goal()
+    elif option == "5":
+        print("Exiting Microgoal Tracker. Stay productive!")
+        break
+    else:
+        print("Invalid option. Please try again.")
